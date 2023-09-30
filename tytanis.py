@@ -14,10 +14,13 @@ import getopt
 import sys
 
 steps = 100
+s=10
+r=28
+b=2.667
 
 argv = sys.argv[1:]
 short_opts = "st:"
-long_opts = ["steps="]
+long_opts = ["steps=", "s=", "r=", "b="]
 
 try:
 	args, opts = getopt.getopt(argv, short_opts, long_opts)
@@ -28,6 +31,14 @@ except getopt.error as err:
 for current_argument, current_value in args:
     if current_argument in ("-st", "--steps"):
         steps = int(current_value)
+    elif current_argument in ("--s"):
+        s = int(current_value)
+    
+    elif current_argument in ("--r"):
+        r = int(current_value)
+    
+    elif current_argument in ("--b"):
+        b = float(current_value)
 
 
 def quantum_shit(x, y, z):
@@ -79,7 +90,7 @@ def quantum_shit2(position, scale):
 quantum_shit(1, 2, 3)
 
 
-def lorenz(xyz, *, s=10, r=28, b=2.667):
+def lorenz(xyz):
     x, y, z = xyz
 
     x_dot = s * (y - x)
@@ -141,15 +152,4 @@ ax.set_ylabel("Y Axis")
 ax.set_zlabel("Z Axis")
 ax.set_title("Lorenz Attractor")
 
-# plt.scatter(x, y, 1, "#ff0000", cmap="coolwarm")
-# plt.colorbar()
-plt.savefig("quantum" + str(time.time()) + ".png")
-
-# plt.scatter(x_cercle, y_cercle, c=tab_cercle[1], s=1, cmap="coolwarm")
-# plt.scatter(x, y, c=tab[1], s=1, cmap="coolwarm")
-# plt.colorbar()
-# plt.savefig("quantum" + str(time.time()) + ".png")
-
-
-# qc_cercle.draw(output="mpl", filename="test.png")
-# print(qc_cercle)
+plt.savefig("out/quantum" + str(time.time()) + ".png", dpi=1000)
