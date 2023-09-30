@@ -14,6 +14,7 @@ import getopt
 import sys
 
 steps = 100
+alg="lorenz"
 s=10
 r=28
 b=2.667
@@ -24,7 +25,7 @@ rc = 5.7
 
 argv = sys.argv[1:]
 short_opts = "st:"
-long_opts = ["steps=", "s=", "r=", "b=", "lw="]
+long_opts = ["steps=", "s=", "r=", "b=", "lw=", "ra=", "rb=", "rc=", "alg="]
 
 try:
 	args, opts = getopt.getopt(argv, short_opts, long_opts)
@@ -35,6 +36,8 @@ except getopt.error as err:
 for current_argument, current_value in args:
     if current_argument in ("-st", "--steps"):
         steps = int(current_value)
+    if current_argument in ("--alg"):
+        alg = current_value
     elif current_argument in ("--s"):
         s = int(current_value)
     
@@ -45,6 +48,12 @@ for current_argument, current_value in args:
         b = float(current_value)
     elif current_argument in ("--lw"):
         lw = float(current_value)
+    elif current_argument in ("--ra"):
+        ra = float(current_value)
+    elif current_argument in ("--rb"):
+        rb = float(current_value)
+    elif current_argument in ("--rc"):
+        rc = float(current_value)
 
 
 def quantum_shit(x, y, z):
@@ -120,10 +129,15 @@ xyzs = np.empty((steps + 1, 3))
 xyzs[0] = (0., 1. + quantum_shit(1, 0,0), 1.05 + quantum_shit(1, 0, 0))
 colors = []
 
+print(alg)
+
 for i in range(steps):
-    lorenz_result = lorenz(xyzs[i])
-    colors.append(lorenz_result[1])
-    xyzs[i + 1] = xyzs[i] + lorenz_result[0] * dt
+    if(alg == "lorenz"):
+        result = lorenz(xyzs[i])
+    elif(alg == "rossler"):
+        result = rossler(xyzs[i])
+    colors.append(result[1])
+    xyzs[i + 1] = xyzs[i] + result[0] * dt
 
 colors.append(np.random.rand(3))
 
