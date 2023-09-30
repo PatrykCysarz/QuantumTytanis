@@ -18,6 +18,9 @@ s=10
 r=28
 b=2.667
 lw=1
+ra = 0.2
+rb = 0.2
+rc = 5.7
 
 argv = sys.argv[1:]
 short_opts = "st:"
@@ -104,6 +107,12 @@ def lorenz(xyz):
     z_dot = x * y - b * z
     return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 50, red_shift), quantum_shit2(abs(y_dot), 30, green_shift), quantum_shit2(abs(z_dot), 30, blue_shift)]
 
+def rossler(xyz):
+    x, y, z = xyz
+    x_dot = -y - z
+    y_dot = x + ra * y
+    z_dot = rb + z * (x - rc)
+    return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 50, red_shift), quantum_shit2(abs(y_dot), 30, green_shift), quantum_shit2(abs(z_dot), 30, blue_shift)]
 
 dt = 0.01
 
