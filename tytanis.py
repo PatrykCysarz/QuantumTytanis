@@ -107,10 +107,8 @@ def lorenz(xyz):
 
 dt = 0.01
 
-xyzs = np.empty((steps + 1, 3))  # Need one more for the initial values
-xyzs[0] = (0., 1. + quantum_shit(1, 0,0), 1.05 + quantum_shit(1, 0, 0))  # Set initial values
-# Step through "time", calculating the partial derivatives at the current point
-# and using them to estimate the next point
+xyzs = np.empty((steps + 1, 3))
+xyzs[0] = (0., 1. + quantum_shit(1, 0,0), 1.05 + quantum_shit(1, 0, 0))
 colors = []
 
 for i in range(steps):
@@ -138,7 +136,7 @@ plt.rcParams.update({
     "savefig.edgecolor": "black"})
 
 # Plot
-ax = plt.figure().add_subplot(projection='3d')
+ax = plt.figure(figsize=(5, 5)).add_subplot(projection='3d')
 
 
 ax.xaxis.pane.fill = False
@@ -152,7 +150,7 @@ ax.grid(False)
 ax.set_axis_off()
 
 
-ax.scatter(*xyzs.T, lw=lw, s=1, c=np.array(colors))
+ax.scatter(*xyzs.T, lw=lw, s=0.3, c=np.array(colors))
 ax.set_xlabel("X Axis")
 ax.set_ylabel("Y Axis")
 ax.set_zlabel("Z Axis")
