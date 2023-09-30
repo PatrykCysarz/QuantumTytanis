@@ -44,7 +44,7 @@ def quantum_shit(x, y, z):
     counts = result.get_counts(compiled_circuit)
     return counts['00'] / counts['11']
 
-def quantum_shit2(position, scale):
+def quantum_shit2(position, scale, shift):
     print(position, scale)
     simulator = AerSimulator()
     qreg_q = QuantumRegister(1, 'q')
@@ -74,10 +74,13 @@ def quantum_shit2(position, scale):
  
     print(result)
  
-    return result
+    return (result * (1 - shift)) + shift
 
 quantum_shit(1, 2, 3)
 
+red_shift = random.uniform(0, 1)
+green_shift = random.uniform(0, 1)
+blue_shift = random.uniform(0, 1)
 
 def lorenz(xyz, *, s=10, r=28, b=2.667):
     x, y, z = xyz
@@ -85,7 +88,7 @@ def lorenz(xyz, *, s=10, r=28, b=2.667):
     x_dot = s * (y - x)
     y_dot = r * x - y - x * z
     z_dot = x * y - b * z
-    return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 200), quantum_shit2(abs(y_dot), 100), quantum_shit2(abs(z_dot), 100)]
+    return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 50, red_shift), quantum_shit2(abs(y_dot), 30, green_shift), quantum_shit2(abs(z_dot), 30, blue_shift)]
 
 
 dt = 0.01
@@ -109,12 +112,12 @@ plt.rcParams.update({
     "lines.color": "white",
     "patch.edgecolor": "white",
     "text.color": "black",
-    "axes.facecolor": "#333333",
+    "axes.facecolor": "#000000",
     "axes.edgecolor": "lightgray",
     "axes.labelcolor": "white",
     "xtick.color": "white",
     "ytick.color": "white",
-    "grid.color": "#333333",
+    "grid.color": "#000000",
     "figure.facecolor": "black",
     "figure.edgecolor": "black",
     "savefig.facecolor": "black",
