@@ -17,10 +17,11 @@ steps = 100
 s=10
 r=28
 b=2.667
+lw=1
 
 argv = sys.argv[1:]
 short_opts = "st:"
-long_opts = ["steps=", "s=", "r=", "b="]
+long_opts = ["steps=", "s=", "r=", "b=", "lw="]
 
 try:
 	args, opts = getopt.getopt(argv, short_opts, long_opts)
@@ -39,6 +40,8 @@ for current_argument, current_value in args:
     
     elif current_argument in ("--b"):
         b = float(current_value)
+    elif current_argument in ("--lw"):
+        lw = float(current_value)
 
 
 def quantum_shit(x, y, z):
@@ -149,7 +152,7 @@ ax.grid(False)
 ax.set_axis_off()
 
 
-ax.scatter(*xyzs.T, lw=0.5, s=1, c=np.array(colors))
+ax.scatter(*xyzs.T, lw=lw, s=1, c=np.array(colors))
 ax.set_xlabel("X Axis")
 ax.set_ylabel("Y Axis")
 ax.set_zlabel("Z Axis")
