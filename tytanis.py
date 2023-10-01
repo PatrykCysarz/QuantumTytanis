@@ -93,14 +93,10 @@ def quantum_shit2(position, scale, shift):
     if '1' not in counts:
         counts['1'] = 1
  
-    result = counts['0'] / counts['1']
- 
-    if result > 1:
-        result = 1
- 
-    print(result)
- 
-    return (result * (1 - shift)) + shift
+    result = counts['1'] * 0.01
+    result = abs(pow(result, 2) - 0.5) * 2
+
+    return result % 1
 
 quantum_shit(1, 2, 3)
 
@@ -121,7 +117,7 @@ def rossler(xyz):
     x_dot = -y - z
     y_dot = x + ra * y
     z_dot = rb + z * (x - rc)
-    return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 50, red_shift), quantum_shit2(abs(y_dot), 30, green_shift), quantum_shit2(abs(z_dot), 30, blue_shift)]
+    return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 20, red_shift), quantum_shit2(abs(y_dot), 15, green_shift), quantum_shit2(abs(z_dot), 10, blue_shift)]
 
 dt = 0.01
 
