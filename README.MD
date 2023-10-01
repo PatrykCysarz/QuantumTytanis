@@ -1,5 +1,7 @@
 # QUANTUM TYTANIS
 
+Application for visualising Lorenz & Rossler attractors with addition of quantum uncertainty principle. Without Qiskit usage application would yield almost the same result every time. Colors and starting values of attractor set with usage of quantum circuit. Each axis of image is mapped to different color - R, G or B. Each simulation step is affected by quantum uncertainty. 
+
 Usage:
 
 `python3 tytanis.py`
