@@ -119,7 +119,7 @@ def rossler(xyz):
     z_dot = rb + z * (x - rc)
     return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 20, red_shift), quantum_shit2(abs(y_dot), 15, green_shift), quantum_shit2(abs(z_dot), 10, blue_shift)]
 
-dt = 0.01
+dt = 0.0005
 
 xyzs = np.empty((steps + 1, 3))
 xyzs[0] = (0., 1. + quantum_shit(1, 0,0), 1.05 + quantum_shit(1, 0, 0))
