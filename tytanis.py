@@ -116,8 +116,6 @@ xyzs = np.empty((steps + 1, 3))
 xyzs[0] = (0., 1. + quantum_shift(1, 0,0), 1.05 + quantum_shift(1, 0, 0))
 colors = []
 
-print(alg)
-
 for i in range(steps):
     if(alg == "lorenz"):
         result = lorenz(xyzs[i])
@@ -128,26 +126,9 @@ for i in range(steps):
 
 colors.append(np.random.rand(3))
 
-
 plt.style.use('dark_background')
-plt.rcParams.update({
-    "lines.color": "white",
-    "patch.edgecolor": "white",
-    "text.color": "black",
-    "axes.facecolor": "#000000",
-    "axes.edgecolor": "lightgray",
-    "axes.labelcolor": "white",
-    "xtick.color": "white",
-    "ytick.color": "white",
-    "grid.color": "#000000",
-    "figure.facecolor": "black",
-    "figure.edgecolor": "black",
-    "savefig.facecolor": "black",
-    "savefig.edgecolor": "black"})
-
 # Plot
 ax = plt.figure(figsize=(5, 5)).add_subplot(projection='3d')
-
 
 ax.xaxis.pane.fill = False
 ax.yaxis.pane.fill = False
@@ -159,11 +140,6 @@ ax.zaxis.pane.set_edgecolor('#000000')
 ax.grid(False)
 ax.set_axis_off()
 
-
 ax.scatter(*xyzs.T, lw=lw, s=0.3, c=np.array(colors))
-ax.set_xlabel("X Axis")
-ax.set_ylabel("Y Axis")
-ax.set_zlabel("Z Axis")
-ax.set_title("Lorenz Attractor")
 
 plt.savefig("out/quantum" + str(time.time()) + ".png", dpi=1000)
