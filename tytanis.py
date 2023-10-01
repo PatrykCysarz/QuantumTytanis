@@ -1,15 +1,11 @@
-from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit, Aer, execute
-from qiskit.compiler import transpile, assemble
-from qiskit.tools.jupyter import *
-from qiskit.visualization import *
+from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit
+from qiskit.compiler import transpile
 from qiskit_aer import AerSimulator
-from numpy import pi, sqrt
+from numpy import pi
 import random
 import time
-import json
 import matplotlib.pyplot as plt
 import numpy as np
-import array as arr
 import getopt
 import sys
 
@@ -56,13 +52,11 @@ for current_argument, current_value in args:
         rc = float(current_value)
 
 
-def quantum_shit(x, y, z):
+def quantum_shift(x, y, z):
     simulator = AerSimulator()
     circuit = QuantumCircuit(2, 2)
     circuit.h(0)
     circuit.cx(0, 1)
-    if (x > 20):
-        print('asd');
     circuit.measure([0, 1], [0, 1])
     compiled_circuit = transpile(circuit, simulator)
     job = simulator.run(compiled_circuit, shots=40)
@@ -70,8 +64,7 @@ def quantum_shit(x, y, z):
     counts = result.get_counts(compiled_circuit)
     return counts['00'] / counts['11']
 
-def quantum_shit2(position, scale, shift):
-    print(position, scale)
+def quantum_color_shift(position, scale, shift):
     simulator = AerSimulator()
     qreg_q = QuantumRegister(1, 'q')
     creg_c = ClassicalRegister(1, 'c')
@@ -98,8 +91,6 @@ def quantum_shit2(position, scale, shift):
 
     return result % 1
 
-quantum_shit(1, 2, 3)
-
 red_shift = random.uniform(0, 1)
 green_shift = random.uniform(0, 1)
 blue_shift = random.uniform(0, 1)
@@ -110,19 +101,19 @@ def lorenz(xyz):
     x_dot = s * (y - x)
     y_dot = r * x - y - x * z
     z_dot = x * y - b * z
-    return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 50, red_shift), quantum_shit2(abs(y_dot), 30, green_shift), quantum_shit2(abs(z_dot), 30, blue_shift)]
+    return np.array([x_dot, y_dot, z_dot]), [quantum_color_shift(x_dot, 50, red_shift), quantum_color_shift(abs(y_dot), 30, green_shift), quantum_color_shift(abs(z_dot), 30, blue_shift)]
 
 def rossler(xyz):
     x, y, z = xyz
     x_dot = -y - z
     y_dot = x + ra * y
     z_dot = rb + z * (x - rc)
-    return np.array([x_dot, y_dot, z_dot]), [quantum_shit2(x_dot, 20, red_shift), quantum_shit2(abs(y_dot), 15, green_shift), quantum_shit2(abs(z_dot), 10, blue_shift)]
+    return np.array([x_dot, y_dot, z_dot]), [quantum_color_shift(x_dot, 20, red_shift), quantum_color_shift(abs(y_dot), 15, green_shift), quantum_color_shift(abs(z_dot), 10, blue_shift)]
 
 dt = 0.0005
 
 xyzs = np.empty((steps + 1, 3))
-xyzs[0] = (0., 1. + quantum_shit(1, 0,0), 1.05 + quantum_shit(1, 0, 0))
+xyzs[0] = (0., 1. + quantum_shift(1, 0,0), 1.05 + quantum_shift(1, 0, 0))
 colors = []
 
 print(alg)
